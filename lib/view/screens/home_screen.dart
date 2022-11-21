@@ -10,20 +10,22 @@ class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final homeController=context.read<HomeController>();
+    final homeController = context.read<HomeController>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home Page'),
       ),
       body: FutureBuilder(
         future: homeController.onInit(),
-        builder:(_, __) => Selector<HomeController, List<MeterDataModel>>(
+        builder: (_, __) => Selector<HomeController, List<MeterDataModel>>(
           selector: (_, provider) => provider.meterDataList,
           builder: (_, dataList, __) => dataList.isEmpty
-              ? Center(child: TextWidget('No data available'))
+              ? Center(
+                  child: TextWidget('No data available'),
+                )
               : ListView.separated(
                   itemBuilder: (_, index) {
-                    return MainCard(data: dataList[index], idx: index+1);
+                    return MainCard(data: dataList[index], idx: index + 1);
                   },
                   separatorBuilder: (_, __) {
                     return const SizedBox(height: 10);
@@ -34,7 +36,11 @@ class HomeScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (ctx) => const AddScreen()));
+            context,
+            MaterialPageRoute(
+              builder: (ctx) => const AddScreen(),
+            ),
+          );
         },
         child: const Icon(Icons.add),
       ),

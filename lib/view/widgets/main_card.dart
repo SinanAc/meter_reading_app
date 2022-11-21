@@ -13,8 +13,12 @@ class MainCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (ctx) => EditScreen(data: data)));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (ctx) => EditScreen(data: data),
+          ),
+        );
       },
       child: Card(
         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
