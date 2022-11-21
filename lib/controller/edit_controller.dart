@@ -5,21 +5,25 @@ import 'package:meter_reading_app/service/service.dart';
 import 'package:meter_reading_app/view/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
-class EditController extends ChangeNotifier{
+class EditController extends ChangeNotifier {
   GlobalKey<FormState> editDataFormKey = GlobalKey<FormState>();
   final meterIdController = TextEditingController();
   final meterNumberController = TextEditingController();
   final meterNameController = TextEditingController();
   final serialNumController = TextEditingController();
-  final date = DateTime.now();
-  void onInit(MeterDataModel data){
-    meterIdController.text=data.meterId.toString();
-    meterNumberController.text=data.meterNumber??'';
-    meterNameController.text=data.meterName??'';
-    serialNumController.text=data.serialNumber??'';
-  }
+  DateTime date = DateTime.now();
   String image = '';
-  Future<void> onSubmitChangesButton(context,String id) async {
+
+  void onInit(MeterDataModel data) {
+    meterIdController.text = data.meterId.toString();
+    meterNumberController.text = data.meterNumber ?? '';
+    meterNameController.text = data.meterName ?? '';
+    serialNumController.text = data.serialNumber ?? '';
+    date = data.lastReadDate ?? DateTime.now();
+    image = data.image ?? '';
+  }
+
+  Future<void> onSubmitChangesButton(context, String id) async {
     if (editDataFormKey.currentState!.validate()) {
       final data = MeterDataModel(
           id: '',
@@ -29,8 +33,8 @@ class EditController extends ChangeNotifier{
           serialNumber: serialNumController.text.trim(),
           lastReadDate: date,
           image: image);
-      await MeterDataService.instance.editMeterData(data: data,id: id);
-      final dataList = await MeterDataService.instance.getAllData();
+      await MeterDataService.instance.editMeterData(data: data, id: id);
+      final List<MeterDataModel> dataList = await MeterDataService.instance.getAllData();
       Provider.of<HomeController>(context, listen: false)
           .addAllMeterData(data: dataList);
       Navigator.of(context).pushReplacement(
