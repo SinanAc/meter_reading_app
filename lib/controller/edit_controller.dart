@@ -43,7 +43,10 @@ class EditController extends ChangeNotifier {
       Provider.of<HomeController>(context, listen: false)
           .addAllMeterData(data: dataList);
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (ctx) => const HomeScreen()));
+        MaterialPageRoute(
+          builder: (ctx) => const HomeScreen(),
+        ),
+      );
     }
   }
 }

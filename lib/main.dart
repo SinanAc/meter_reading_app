@@ -11,7 +11,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   if (!Hive.isAdapterRegistered(MeterDataModelAdapter().typeId)) {
-    Hive.registerAdapter(MeterDataModelAdapter());
+    Hive.registerAdapter(
+      MeterDataModelAdapter(),
+    );
   }
   runApp(const MyApp());
 }
@@ -22,9 +24,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => AddController()),
-        ChangeNotifierProvider(create: (context) => EditController()),
-        ChangeNotifierProvider(create: (context) => HomeController()),
+        ChangeNotifierProvider(
+          create: (context) => AddController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => EditController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => HomeController(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
