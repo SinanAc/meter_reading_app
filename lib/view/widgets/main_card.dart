@@ -5,8 +5,11 @@ import 'package:meter_reading_app/view/screens/edit_screen.dart';
 import 'package:meter_reading_app/view/widgets/text_widget.dart';
 
 class MainCard extends StatelessWidget {
-  const MainCard({Key? key, required this.data, required this.idx})
-      : super(key: key);
+  const MainCard({
+    Key? key,
+    required this.data,
+    required this.idx,
+  }) : super(key: key);
   final MeterDataModel data;
   final int idx;
   @override
