@@ -11,6 +11,7 @@ import 'package:meter_reading_app/view/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
 class AddController extends ChangeNotifier {
+  // ===>>> VARIABLES
   GlobalKey<FormState> addDataFormKey = GlobalKey<FormState>();
   final meterIdController = TextEditingController();
   final meterNumberController = TextEditingController();
@@ -19,6 +20,8 @@ class AddController extends ChangeNotifier {
   DateTime selectedDate = DateTime.now();
   String image = '';
   String imageToString = '';
+
+  // ===>>> INIT METHOD
   void onInit() {
     image = '';
     meterIdController.clear();
@@ -28,16 +31,18 @@ class AddController extends ChangeNotifier {
     selectedDate = DateTime.now();
   }
 
+  // ===>>> ON SUBMIT BUTTON
   Future<void> onSubmitButton(context) async {
     if (addDataFormKey.currentState!.validate()) {
       final data = MeterDataModel(
-          id: DateTime.now().millisecondsSinceEpoch.toString(),
-          meterId: int.parse(meterIdController.text.trim()),
-          meterNumber: meterNumberController.text.trim(),
-          meterName: meterNameController.text.trim(),
-          serialNumber: serialNumController.text.trim(),
-          lastReadDate: selectedDate,
-          image: image);
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        meterId: int.parse(meterIdController.text.trim()),
+        meterNumber: meterNumberController.text.trim(),
+        meterName: meterNameController.text.trim(),
+        serialNumber: serialNumController.text.trim(),
+        lastReadDate: selectedDate,
+        image: image,
+      );
       await MeterDataService.instance.addMeterData(data);
       final dataList = await MeterDataService.instance.getAllData();
       Provider.of<HomeController>(context, listen: false)
@@ -47,6 +52,7 @@ class AddController extends ChangeNotifier {
     }
   }
 
+  // ===>>> TO SELECT DATE
   Future<void> selectDate(context) async {
     final _selectedDate = await showDatePicker(
       context: context,
@@ -62,6 +68,7 @@ class AddController extends ChangeNotifier {
     }
   }
 
+  // ===>>> TO TAKE PHOTO
   Future<void> pickImage() async {
     final selectedImage =
         await ImagePicker().pickImage(source: ImageSource.camera);
